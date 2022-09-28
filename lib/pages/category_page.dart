@@ -23,10 +23,11 @@ class _CategoryPageState extends State<CategoryPage> {
   void initState() {
     // TODO: implement initState
     //items.addAll(it.items);
-    print('Catepage: ${widget.items}');
+    //print('Catepage: ${widget.items}');
     //_categoryCubit.getItemCart(widget.cart);
-    _categoryCubit.getCart();
-    _categoryCubit.getItem(widget.items);
+
+    // _categoryCubit.getCart();
+    // _categoryCubit.getItem(widget.items);
 
     super.initState();
   }
@@ -37,14 +38,14 @@ class _CategoryPageState extends State<CategoryPage> {
 
   @override
   void setState(VoidCallback fn) {
-    _categoryCubit.getItem(widget.items);
+   // _categoryCubit.getItem(widget.items);
     // TODO: implement setState
     super.setState(fn);
   }
 
   @override
   Widget build(BuildContext context) {
-    //myInitState(_categoryCubit);
+    myInitState(_categoryCubit);
     return Scaffold(
       appBar: AppBar(
         actions: [

@@ -13,9 +13,10 @@ class CategoryCubit extends Cubit<CategoryState>{
   getItem(List<it.Item> lists)async{
     items.clear();
     print("cart after save: $cart");
+
     for(it.Item item in cart){
       for(it.Item iteml in lists){
-        if(item == iteml){
+        if(item.id == iteml.id){
           iteml.isAdd=true;
         }
       }
@@ -35,9 +36,7 @@ class CategoryCubit extends Cubit<CategoryState>{
 
 
   addCartItems(it.Item item) async {
-      if(!cart.contains(item)){
-        cart.add(item);
-      }
+      cart.add(item);
       for(int i=0;i<items.length;i++){
           for(int j=0;j<cart.length;j++){
             if(items[i].id==cart[j].id) {
@@ -59,7 +58,7 @@ class CategoryCubit extends Cubit<CategoryState>{
   getItemCart(List<it.Item> items) async {
      for(it.Item itemz in items){
       if(!cart.contains(itemz)){
-        cart.addAll(items);
+        cart.add(itemz);
       }
     }
     emit(CategoryCartGetState());
@@ -71,7 +70,6 @@ class CategoryCubit extends Cubit<CategoryState>{
         emit(CategoryEmptyState());
       }
     });
-    //await saveCart();
   }
 
   removeCartItems(it.Item item) async {
@@ -101,7 +99,6 @@ class CategoryCubit extends Cubit<CategoryState>{
   Future saveCart() async {
 
     List<String> listDataString =[];
-
     for(it.Item item in cart){
       // model => map
       Map<String, dynamic> dataJson = Map<String, dynamic>();
@@ -124,6 +121,7 @@ class CategoryCubit extends Cubit<CategoryState>{
     if(sharedPreferences==null){
       sharedPreferences = await SharedPreferences.getInstance();
     }
+    cart.clear();
     List<String>? data = sharedPreferences!.getStringList('data');
     if(data!=null){
       for(String str in data){
@@ -135,14 +133,40 @@ class CategoryCubit extends Cubit<CategoryState>{
         item.name = dataMap['name'];
         item.isAdd = dataMap['isAdd'];
         item.price = dataMap['price'];
-        if(!cart.contains(item)){
-          cart.add(item);
-        }
+
+
+        // if(cart.isNotEmpty){
+        //   cart.clear();
+        // }
+        cart.add(item);
+
+        // if(cart.isEmpty){
+        //   cart.add(item);
+        // }else{
+        //     for(it.Item itemz in cart) {
+        //       if (itemz.id != item.id) {
+        //           cart.add(item);
+        //       }
+        //     }
+        // }
+
+        // if(cart.isNotEmpty&&cart!=null){
+        //   for(it.Item itemz in cart){
+        //     if(itemz.id != item.id){
+        //       cart.add(item);
+        //     }
+        //   }
+        // }else{
+        //   cart.add(item);
+        // }
+
 
 
       }
     }
   }
+
+
 
 }
 

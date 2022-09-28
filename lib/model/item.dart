@@ -6,6 +6,15 @@ class Item{
   Item(this.id, this.name, this.isAdd, this.price);
 
 
+  // @override
+  // bool operator == (Object other){
+  //   return (other is Item) &&
+  //     other.name == name &&
+  //       other.id == id &&
+  //       other.isAdd == isAdd &&
+  //     other.price == price;
+  // }
+
   @override
   String toString() {
     return 'Item{id: $id, name: $name, isAdd: $isAdd, price: $price}';
